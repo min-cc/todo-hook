@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import TodoLists from '../components/TodoLists';
 import Login from './Login';
+import { useDispatch } from 'react-redux';
+import { getToken } from '../slices/auToken';
 
 function Home() {
   const [checkLogin, setCheckLogin] = useState(() => localStorage.token ? true : false);
@@ -8,6 +10,8 @@ function Home() {
   const [user, setUser] = useState('');
   const [message, setMessage] = useState('');
   const [list, setList] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getListTodo() {
@@ -108,6 +112,7 @@ function Home() {
     localStorage.removeItem('token')
     await setList([])
     setCheckLogin(false)
+    dispatch(getToken(''))
   }
 
   function notification(mes) {

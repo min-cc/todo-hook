@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { getToken } from '../slices/auToken';
 
 Login.propTypes = {
   showform : PropTypes.func.isRequired,
@@ -8,6 +10,7 @@ Login.propTypes = {
 
 function Login(props) {
   const { showform, notification } = props
+  const dispatch = useDispatch()
   const [validate, setValidate] = useState(true);
   const [user, setUser] = useState({
     username: '',
@@ -40,6 +43,7 @@ function Login(props) {
         showform()
         setValidate(true)
         notification(`Wellcome ${res.username}`)
+        dispatch(getToken(res.token))
       }else if(isLogin && !res.token){
         setValidate(false)
       }else if(res.username){

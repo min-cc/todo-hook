@@ -17,7 +17,8 @@ function TodoLists(props) {
   const [searchValue, setSearchValue] = useState('');
   const { list, add, remove, edit, search } = props
 
-  function addTodo() {
+  function addTodo(e) {
+    e.preventDefault()
     setContent('')
     add(content)
   }
@@ -40,10 +41,10 @@ function TodoLists(props) {
   return (
     <div>
       <div className="todo-list-box">
-        <div>
+        <form onSubmit={addTodo}>
           <input placeholder="What will you do today ..." className="input-form" type="text" onChange={e => setContent(e.target.value)} value={content} />
-          <button className="button-form" onClick={addTodo}>Add</button>
-        </div>
+          <button className="button-form">Add</button>
+        </form>
         <form onSubmit={searchTodo}>
           <input type="text" placeholder="Search todos ..." className="input-form" value={searchValue} onChange={e => setSearchValue(e.target.value)} />
         </form>
